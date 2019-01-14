@@ -1,0 +1,34 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+  datasource:
+    url: jdbc:h2:mem:mydb;DB_CLOSE_DELAY=-1;MODE=MYSQL
+
+server:
+  address: 0.0.0.0
+  port: 8000
+  context-path: /
+
+logging:
+  level:
+    org.springframework.web: INFO
+    org.hibernate: ERROR
+
+---
+
+spring:
+  profiles: test
+  h2:
+    console:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+
