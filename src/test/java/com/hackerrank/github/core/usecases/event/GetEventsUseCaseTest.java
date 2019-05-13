@@ -1,8 +1,8 @@
 package com.hackerrank.github.core.usecases.event;
 
-import com.hackerrank.github.core.domain.EntitiesMother;
-import com.hackerrank.github.core.domain.Event;
-import com.hackerrank.github.core.domain.EventRepository;
+import com.hackerrank.github.core.entities.EntitiesMother;
+import com.hackerrank.github.core.entities.Event;
+import com.hackerrank.github.core.entities.EventRepository;
 import com.hackerrank.github.core.usecases.UseCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;

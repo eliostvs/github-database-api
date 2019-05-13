@@ -1,18 +1,18 @@
 package com.hackerrank.github.presenter.rest.api.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hackerrank.github.core.domain.BusinessException;
-import com.hackerrank.github.core.domain.EntitiesMother;
-import com.hackerrank.github.core.domain.EntityNotFoundException;
-import com.hackerrank.github.core.domain.Event;
-import com.hackerrank.github.core.domain.Identity;
+import com.hackerrank.github.core.entities.BusinessException;
+import com.hackerrank.github.core.entities.EntitiesMother;
+import com.hackerrank.github.core.entities.EntityNotFoundException;
+import com.hackerrank.github.core.entities.Event;
+import com.hackerrank.github.core.entities.Identity;
 import com.hackerrank.github.core.usecases.UseCase;
 import com.hackerrank.github.core.usecases.event.CreateEventUseCase;
 import com.hackerrank.github.core.usecases.event.DeleteEventsUseCase;
 import com.hackerrank.github.core.usecases.event.GetActorEventsUseCase;
 import com.hackerrank.github.core.usecases.event.GetEventsUseCase;
 import com.hackerrank.github.presenter.rest.BaseControllerTest;
-import com.hackerrank.github.presenter.rest.api.common.ApiEntitiesMother;
+import com.hackerrank.github.presenter.rest.api.shared.ApiEntitiesMother;
 import com.hackerrank.github.presenter.usecases.UseCaseExecutorImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,7 +51,7 @@ public class EventControllerTest extends BaseControllerTest {
 
     @Configuration
     @ComponentScan(basePackages = {
-            "com.hackerrank.github.presenter.rest.api.common",
+            "com.hackerrank.github.presenter.rest.api.shared",
             "com.hackerrank.github.presenter.rest.api.event"
     })
     static class Config {

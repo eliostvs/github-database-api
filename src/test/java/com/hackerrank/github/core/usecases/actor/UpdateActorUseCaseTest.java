@@ -1,10 +1,10 @@
 package com.hackerrank.github.core.usecases.actor;
 
-import com.hackerrank.github.core.domain.Actor;
-import com.hackerrank.github.core.domain.ActorRepository;
-import com.hackerrank.github.core.domain.DomainException;
-import com.hackerrank.github.core.domain.EntitiesMother;
-import com.hackerrank.github.core.domain.EntityNotFoundException;
+import com.hackerrank.github.core.entities.Actor;
+import com.hackerrank.github.core.entities.ActorRepository;
+import com.hackerrank.github.core.entities.DomainException;
+import com.hackerrank.github.core.entities.EntitiesMother;
+import com.hackerrank.github.core.entities.EntityNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

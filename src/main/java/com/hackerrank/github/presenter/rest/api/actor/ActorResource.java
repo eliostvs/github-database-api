@@ -1,8 +1,8 @@
 package com.hackerrank.github.presenter.rest.api.actor;
 
 
-import com.hackerrank.github.presenter.rest.api.common.ActorRequest;
-import com.hackerrank.github.presenter.rest.api.common.ActorResponse;
+import com.hackerrank.github.presenter.rest.api.shared.ActorRequest;
+import com.hackerrank.github.presenter.rest.api.shared.ActorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;

@@ -1,9 +1,9 @@
 package com.hackerrank.github.core.usecases.actor;
 
-import com.hackerrank.github.core.domain.Actor;
-import com.hackerrank.github.core.domain.ActorRepository;
-import com.hackerrank.github.core.domain.BusinessException;
-import com.hackerrank.github.core.domain.EntityNotFoundException;
+import com.hackerrank.github.core.entities.Actor;
+import com.hackerrank.github.core.entities.ActorRepository;
+import com.hackerrank.github.core.entities.BusinessException;
+import com.hackerrank.github.core.entities.EntityNotFoundException;
 import com.hackerrank.github.core.usecases.UseCase;
 import lombok.Value;
 import org.springframework.transaction.annotation.Transactional;

@@ -2,9 +2,9 @@ package com.hackerrank.github.presenter.rest.api.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.hackerrank.github.core.domain.Event;
-import com.hackerrank.github.presenter.rest.api.common.ActorResponse;
-import com.hackerrank.github.presenter.rest.api.common.RepoResponse;
+import com.hackerrank.github.core.entities.Event;
+import com.hackerrank.github.presenter.rest.api.shared.ActorResponse;
+import com.hackerrank.github.presenter.rest.api.shared.RepoResponse;
 import lombok.Value;
 
 import java.time.LocalDateTime;

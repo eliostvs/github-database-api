@@ -42,8 +42,8 @@ public class EventController implements EventResource {
                                                                             HttpServletRequest httpServletRequest) {
         return useCaseExecutor.execute(
                 createEventUseCase,
-                CreateEventMapper.input(request),
-                (outputValues) -> CreateEventMapper.output(outputValues, httpServletRequest)
+                CreateEventAdapter.input(request),
+                (outputValues) -> CreateEventAdapter.output(outputValues, httpServletRequest)
         );
     }
 
@@ -52,7 +52,7 @@ public class EventController implements EventResource {
         return useCaseExecutor.execute(
                 deleteEventsUseCase,
                 UseCase.noInput(),
-                DeleteAllEventsMapper::output
+                DeleteAllEventsAdapter::output
         );
     }
 
@@ -61,7 +61,7 @@ public class EventController implements EventResource {
         return useCaseExecutor.execute(
                 getEventsUseCase,
                 UseCase.noInput(),
-                GetAllEventsMapper::output
+                GetAllEventsAdapter::output
         );
     }
 
@@ -69,8 +69,8 @@ public class EventController implements EventResource {
     public CompletableFuture<List<EventResponse>> getByActorId(@PathVariable("id") long id) {
         return useCaseExecutor.execute(
                 getActorEventsUseCase,
-                GetEventsByActorMapper.input(id),
-                GetEventsByActorMapper::output
+                GetEventsByActorAdapter.input(id),
+                GetEventsByActorAdapter::output
         );
     }
 }

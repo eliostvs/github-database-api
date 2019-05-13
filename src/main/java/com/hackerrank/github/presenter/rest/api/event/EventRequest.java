@@ -2,8 +2,8 @@ package com.hackerrank.github.presenter.rest.api.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.hackerrank.github.presenter.rest.api.common.ActorRequest;
-import com.hackerrank.github.presenter.rest.api.common.RepoRequest;
+import com.hackerrank.github.presenter.rest.api.shared.ActorRequest;
+import com.hackerrank.github.presenter.rest.api.shared.RepoRequest;
 import lombok.NonNull;
 import lombok.Value;
 import org.springframework.format.annotation.DateTimeFormat;

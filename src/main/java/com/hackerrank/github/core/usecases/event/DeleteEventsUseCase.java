@@ -1,6 +1,6 @@
 package com.hackerrank.github.core.usecases.event;
 
-import com.hackerrank.github.core.domain.EventRepository;
+import com.hackerrank.github.core.entities.EventRepository;
 import com.hackerrank.github.core.usecases.UseCase;
 import lombok.Value;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ public class DeleteEventsUseCase extends UseCase<UseCase.NoInput, DeleteEventsUs
 
     @Override
     @Transactional
-    public OutputValues execute(NoInput input) {
+    public OutputValues execute(NoInput ignored) {
         repository.deleteAll();
 
         return new OutputValues(true);

@@ -1,7 +1,7 @@
 package com.hackerrank.github.presenter.config;
 
-import com.hackerrank.github.core.domain.ActorRepository;
-import com.hackerrank.github.core.domain.EventRepository;
+import com.hackerrank.github.core.entities.ActorRepository;
+import com.hackerrank.github.core.entities.EventRepository;
 import com.hackerrank.github.core.usecases.actor.GetActorsUseCase;
 import com.hackerrank.github.core.usecases.actor.GetActorsStreakUseCase;
 import com.hackerrank.github.core.usecases.actor.UpdateActorUseCase;

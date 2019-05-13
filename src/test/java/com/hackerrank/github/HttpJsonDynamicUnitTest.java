@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hackerrank.github.presenter.Application;
 import com.hackerrank.github.presenter.rest.BaseControllerTest;
-import javafx.util.Pair;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -43,8 +42,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.AbstractMap.*;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -61,8 +62,6 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
     private static final MediaType CONTENT_TYPE_JSON = MediaType.APPLICATION_JSON_UTF8;
     private static final MediaType CONTENT_TYPE_TEXT = MediaType.TEXT_PLAIN;
 
-    private static HttpMessageConverter mappingJackson2HttpMessageConverter;
-
     @Autowired
     private WebApplicationContext webApplicationContext;
     private MockMvc mockMvc;
@@ -75,7 +74,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
 
     @Autowired
     public void setConverters(HttpMessageConverter<?>[] converters) {
-        mappingJackson2HttpMessageConverter = Stream.of(converters)
+        HttpMessageConverter mappingJackson2HttpMessageConverter = Stream.of(converters)
                 .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
                 .findAny()
                 .orElse(null);
@@ -86,7 +85,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
     List<String> httpJsonFiles = new ArrayList<>();
     Map<String, String> httpJsonAndTestname = new HashMap<>();
     Map<String, Long> executionTime = new HashMap<>();
-    Map<String, Pair<Pair<String, String>, Pair<String, String>>> testFailures = new HashMap<>();
+    Map<String, Map.Entry<Map.Entry<String, String>, Map.Entry<String, String>>> testFailures = new HashMap<>();
 
     @Rule
     public Stopwatch stopwatch = new Stopwatch() {
@@ -351,7 +350,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
     private boolean validateStatusCode(String filename, String testcase, String expected, String found) {
         if (!expected.equals(found)) {
             String reason = "Status code";
-            addTestFailure(filename, new Pair(new Pair(testcase, reason), new Pair(expected, found)));
+            addTestFailure(filename, new SimpleEntry(new SimpleEntry(testcase, reason), new SimpleEntry(expected, found)));
 
             return false;
         }
@@ -362,7 +361,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
     private boolean validateContentType(String filename, String testcase, String expected, String found) {
         if (!found.startsWith(expected)) {
             String reason = "Content type";
-            addTestFailure(filename, new Pair(new Pair(testcase, reason), new Pair(expected, found)));
+            addTestFailure(filename, new SimpleEntry(new SimpleEntry(testcase, reason), new SimpleEntry(expected, found)));
 
             return false;
         }
@@ -373,7 +372,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
     private boolean validateTextResponse(String filename, String testcase, String expected, String found) {
         if (!expected.equals(found)) {
             String reason = "Response text does not match with the expected response";
-            addTestFailure(filename, new Pair(new Pair(testcase, reason), new Pair(expected, found)));
+            addTestFailure(filename, new SimpleEntry(new SimpleEntry(testcase, reason), new SimpleEntry(expected, found)));
 
             return false;
         }
@@ -393,8 +392,8 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
 
             if (expectedResponseJsonList.size() != responseBodyJsonList.size()) {
                 String reason = "Response Json array size does not match with the expected array size";
-                addTestFailure(filename, new Pair(new Pair(testcase, reason),
-                        new Pair(String.valueOf(expectedResponseJsonList.size()),
+                addTestFailure(filename, new SimpleEntry(new SimpleEntry(testcase, reason),
+                        new SimpleEntry(String.valueOf(expectedResponseJsonList.size()),
                                 String.valueOf(responseBodyJsonList.size()))));
 
                 return false;
@@ -405,7 +404,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
 
                     if (!expectedJson.equals(foundJson)) {
                         String reason = String.format("Response Json (at index %d) does not match with the expected Json", i);
-                        addTestFailure(filename, new Pair(new Pair(testcase, reason), new Pair(expectedJson.toString(),
+                        addTestFailure(filename, new SimpleEntry(new SimpleEntry(testcase, reason), new SimpleEntry(expectedJson.toString(),
                                 foundJson.toString())));
 
                         return false;
@@ -415,7 +414,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
         } catch (IOException ex) {
             if (!expected.equals(found)) {
                 String reason = "Response Json does not match with the expected Json";
-                addTestFailure(filename, new Pair(new Pair(testcase, reason), new Pair(expected.toString(),
+                addTestFailure(filename, new SimpleEntry(new SimpleEntry(testcase, reason), new SimpleEntry(expected.toString(),
                         found.toString())));
 
                 return false;
@@ -425,7 +424,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
         return true;
     }
 
-    private void addTestFailure(String filename, Pair<Pair<String, String>, Pair<String, String>> failure) {
+    private void addTestFailure(String filename, SimpleEntry failure) {
         if (testFailures.containsKey(filename)) {
             throw new Error("I should skip rest of the test cases.");
         }
@@ -525,7 +524,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
                 failedTestFiles.stream()
                         .sorted()
                         .forEachOrdered(filename -> {
-                            Pair<Pair<String, String>, Pair<String, String>> report = testFailures.get(filename);
+                            Entry<Entry<String, String>, Entry<String, String>> report = testFailures.get(filename);
 
                             String testcase = report.getKey()
                                     .getKey();
@@ -550,18 +549,18 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
                                 writer.newLine();
                                 writer.newLine();
                             } catch (IOException ex) {
-                                System.out.println(String.join("\n", Stream.of(ex.getStackTrace())
-                                        .map(trace -> trace.toString())
-                                        .collect(toList())));
+                                System.out.println(Stream.of(ex.getStackTrace())
+                                        .map(StackTraceElement::toString)
+                                        .collect(Collectors.joining("\n")));
 
                                 throw new Error(ex.toString());
                             }
                         });
             }
         } catch (IOException ex) {
-            System.out.println(String.join("\n", Stream.of(ex.getStackTrace())
-                    .map(trace -> trace.toString())
-                    .collect(toList())));
+            System.out.println(Stream.of(ex.getStackTrace())
+                    .map(StackTraceElement::toString)
+                    .collect(Collectors.joining("\n")));
 
             throw new Error(ex.toString());
         }
@@ -591,9 +590,9 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
                                         executionTime.get(filename) / 1000.0f));
                             }
                         } catch (IOException ex) {
-                            System.out.println(String.join("\n", Stream.of(ex.getStackTrace())
-                                    .map(trace -> trace.toString())
-                                    .collect(toList())));
+                            System.out.println(Stream.of(ex.getStackTrace())
+                                    .map(StackTraceElement::toString)
+                                    .collect(Collectors.joining("\n")));
 
                             throw new Error(ex.toString());
                         }
@@ -601,9 +600,9 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
 
             writer.write("</testsuite>\n");
         } catch (IOException ex) {
-            System.out.println(String.join("\n", Stream.of(ex.getStackTrace())
-                    .map(trace -> trace.toString())
-                    .collect(toList())));
+            System.out.println(Stream.of(ex.getStackTrace())
+                    .map(StackTraceElement::toString)
+                    .collect(Collectors.joining("\n")));
 
             throw new Error(ex.toString());
         }
@@ -655,7 +654,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
                     writer.newLine();
                 } catch (IOException ex) {
                     System.out.println(String.join("\n", Stream.of(ex.getStackTrace())
-                            .map(trace -> trace.toString())
+                            .map(StackTraceElement::toString)
                             .collect(toList())));
 
                     throw new Error(ex.toString());
@@ -663,7 +662,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
             });
         } catch (IOException ex) {
             System.out.println(String.join("\n", Stream.of(ex.getStackTrace())
-                    .map(trace -> trace.toString())
+                    .map(StackTraceElement::toString)
                     .collect(toList())));
 
             throw new Error(ex.toString());
@@ -688,7 +687,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
                                     0.0f));
                         } catch (IOException ex) {
                             System.out.println(String.join("\n", Stream.of(ex.getStackTrace())
-                                    .map(trace -> trace.toString())
+                                    .map(StackTraceElement::toString)
                                     .collect(toList())));
 
                             throw new Error(ex.toString());
@@ -698,7 +697,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
             writer.write("</testsuite>\n");
         } catch (IOException ex) {
             System.out.println(String.join("\n", Stream.of(ex.getStackTrace())
-                    .map(trace -> trace.toString())
+                    .map(StackTraceElement::toString)
                     .collect(toList())));
 
             throw new Error(ex.toString());
@@ -706,7 +705,7 @@ public class HttpJsonDynamicUnitTest extends BaseControllerTest {
     }
 
     private static class Colors {
-        public static final String RESET = "\033[0m";
+        static final String RESET = "\033[0m";
 
         public static final String BLACK = "\033[0;30m";
         public static final String RED = "\033[0;31m";

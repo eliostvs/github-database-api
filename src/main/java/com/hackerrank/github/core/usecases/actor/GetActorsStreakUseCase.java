@@ -1,7 +1,7 @@
 package com.hackerrank.github.core.usecases.actor;
 
-import com.hackerrank.github.core.domain.Actor;
-import com.hackerrank.github.core.domain.ActorRepository;
+import com.hackerrank.github.core.entities.Actor;
+import com.hackerrank.github.core.entities.ActorRepository;
 import com.hackerrank.github.core.usecases.UseCase;
 import lombok.Value;
 
@@ -16,7 +16,7 @@ public class GetActorsStreakUseCase extends UseCase<UseCase.NoInput, GetActorsSt
     }
 
     @Override
-    public OutputValues execute(NoInput input) {
+    public OutputValues execute(NoInput ignored) {
         return new OutputValues(repository.getStreak());
     }
 
