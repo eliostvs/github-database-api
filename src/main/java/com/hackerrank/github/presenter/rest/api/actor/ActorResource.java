@@ -17,7 +17,6 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequestMapping("/actors")
 public interface ActorResource {
-
     @PutMapping
     CompletableFuture<ResponseEntity<Object>> create(@Valid @RequestBody ActorRequest request);
 

@@ -21,10 +21,10 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EventRepositoryImplTest {
+public class EventRepositoryAdapterTest {
 
     @InjectMocks
-    private EventRepositoryImpl repository;
+    private EventRepositoryAdapter repository;
 
     @Mock
     private JpaEventRepository jpaEventRepository;

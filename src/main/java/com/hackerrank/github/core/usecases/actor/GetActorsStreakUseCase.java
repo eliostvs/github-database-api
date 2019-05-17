@@ -8,7 +8,6 @@ import lombok.Value;
 import java.util.List;
 
 public class GetActorsStreakUseCase extends UseCase<UseCase.NoInput, GetActorsStreakUseCase.OutputValues> {
-
     private ActorRepository repository;
 
     public GetActorsStreakUseCase(ActorRepository repository) {

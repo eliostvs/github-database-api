@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 
 public class CreateEventAdapter {
-
     public static ResponseEntity<ResponseEntity<Object>> output(CreateEventUseCase.OutputValues value, HttpServletRequest httpServletRequest) {
         URI location = ServletUriComponentsBuilder
                 .fromContextPath(httpServletRequest)

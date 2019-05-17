@@ -17,7 +17,6 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 public interface EventResource {
-
     @DeleteMapping("/erase")
     CompletableFuture<ResponseEntity<Object>> deleteAll();
 

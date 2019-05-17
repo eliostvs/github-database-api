@@ -11,7 +11,6 @@ import lombok.Value;
 import java.util.List;
 
 public class GetActorEventsUseCase extends UseCase<GetActorEventsUseCase.InputValues, GetActorEventsUseCase.OutputValues> {
-
     private EventRepository eventRepository;
     private ActorRepository actorRepository;
 

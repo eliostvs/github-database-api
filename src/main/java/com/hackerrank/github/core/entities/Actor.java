@@ -30,16 +30,6 @@ public class Actor {
     private LocalDateTime latestEvent;
     private List<Event> events = new ArrayList<>();
 
-    public UpdateValidation validateUpdate(Actor other) {
-        if (login.equals(other.getLogin())) {
-            return UpdateValidation.success();
-        } else {
-            String errorMessage = String.format("Update of the Actor with ID '%d' failed because only field 'avatar'" +
-                    " can be change. Tried to change the field 'login'", other.getId().getNumber());
-            return UpdateValidation.error(errorMessage);
-        }
-    }
-
     public void calculateStreak() {
         int maxStreak = 0;
         int currentStreak = 0;
@@ -60,6 +50,16 @@ public class Actor {
         this.streak = maxStreak;
 
         latestEvent = events.get(0).getCreatedAt();
+    }
+
+    public UpdateValidation validateUpdate(Actor other) {
+        if (login.equals(other.getLogin())) {
+            return UpdateValidation.success();
+        } else {
+            String errorMessage = String.format("Update of the Actor with ID '%d' failed because only field 'avatar'" +
+                    " can be change. Tried to change the field 'login'", other.getId().getNumber());
+            return UpdateValidation.error(errorMessage);
+        }
     }
 
     @Value

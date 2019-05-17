@@ -6,7 +6,6 @@ import lombok.Value;
 import org.springframework.transaction.annotation.Transactional;
 
 public class DeleteEventsUseCase extends UseCase<UseCase.NoInput, DeleteEventsUseCase.OutputValues> {
-
     private EventRepository repository;
 
     public DeleteEventsUseCase(EventRepository repository) {

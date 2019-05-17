@@ -8,7 +8,6 @@ import lombok.Value;
 import java.util.List;
 
 public class GetEventsUseCase extends UseCase<UseCase.NoInput, GetEventsUseCase.OutputValues> {
-
     private EventRepository repository;
 
     public GetEventsUseCase(EventRepository repository) {

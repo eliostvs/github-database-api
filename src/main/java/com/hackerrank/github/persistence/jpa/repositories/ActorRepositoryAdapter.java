@@ -12,10 +12,10 @@ import java.util.Optional;
 import static java.util.stream.Collectors.toList;
 
 @Repository
-public class ActorRepositoryImpl implements ActorRepository {
+public class ActorRepositoryAdapter implements ActorRepository {
     private JpaActorRepository jpaRepository;
 
-    public ActorRepositoryImpl(JpaActorRepository jpaRepository) {
+    public ActorRepositoryAdapter(JpaActorRepository jpaRepository) {
         this.jpaRepository = jpaRepository;
     }
 

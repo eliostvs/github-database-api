@@ -7,7 +7,6 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 public class GetAllEventsAdapter {
-
     public static List<EventResponse> output(GetEventsUseCase.OutputValues outputValues) {
         return outputValues
                 .getEvents()

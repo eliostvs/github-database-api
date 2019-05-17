@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class Module {
-
     @Bean
     public CreateEventUseCase createEventUseCase(EventRepository eventRepository, ActorRepository actorRepository) {
         return new CreateEventUseCase(eventRepository, actorRepository);

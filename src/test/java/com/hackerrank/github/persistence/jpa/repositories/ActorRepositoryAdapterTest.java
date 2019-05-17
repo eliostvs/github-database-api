@@ -20,10 +20,10 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ActorRepositoryImplTest {
+public class ActorRepositoryAdapterTest {
 
     @InjectMocks
-    private ActorRepositoryImpl repository;
+    private ActorRepositoryAdapter repository;
 
     @Mock
     private JpaActorRepository jpaRepository;

@@ -15,11 +15,10 @@ import static java.util.stream.Collectors.toList;
 
 @Repository
 @Transactional
-public class EventRepositoryImpl implements EventRepository {
-
+public class EventRepositoryAdapter implements EventRepository {
     private JpaEventRepository jpaEventRepository;
 
-    public EventRepositoryImpl(JpaEventRepository jpaEventRepository) {
+    public EventRepositoryAdapter(JpaEventRepository jpaEventRepository) {
         this.jpaEventRepository = jpaEventRepository;
     }
 

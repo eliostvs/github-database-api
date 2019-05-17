@@ -9,7 +9,6 @@ import lombok.Value;
 import org.springframework.transaction.annotation.Transactional;
 
 public class UpdateActorUseCase extends UseCase<UpdateActorUseCase.InputValues, UpdateActorUseCase.OutputValues> {
-
     private ActorRepository repository;
 
     public UpdateActorUseCase(ActorRepository repository) {
